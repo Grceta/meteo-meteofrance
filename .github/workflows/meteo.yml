@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write   # 🔥 TRÈS IMPORTANT
+      contents: write
 
     steps:
       - name: Checkout repo
@@ -30,10 +30,10 @@ jobs:
         run: python script.py
 
       - name: Commit CSV
-    run: |
-    git config --global user.name "github-actions"
-    git config --global user.email "actions@github.com"
-    git add meteo.csv
-    git commit -m "Update meteo data" || echo "No changes"
-    git pull --rebase
-    git push
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git add meteo.csv
+          git commit -m "Update meteo data" || echo "No changes"
+          git pull --rebase
+          git push
