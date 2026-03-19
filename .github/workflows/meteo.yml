@@ -1,9 +1,9 @@
 name: Meteo Update
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: "0 5 * * *"
-  workflow_dispatch:
 
 jobs:
   run-script:
