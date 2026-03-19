@@ -29,11 +29,10 @@ jobs:
           METEO_API_KEY: ${{ secrets.METEO_API_KEY }}
         run: python script.py
 
-      - name: Commit CSV
+     - name: Commit CSV
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
           git add meteo.csv
           git commit -m "Update meteo data" || echo "No changes"
-          git pull --rebase
-          git push
+          git push --force
