@@ -2,10 +2,34 @@ name: Meteo Update
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "0 5 * * *"
 
 jobs:
-  test:
+  run-script:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     steps:
-      - run: echo "Workflow OK"
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests pandas
+
+      - name: Run script
+        env:
+          METEO_API_KEY: ${{ secrets.METEO_API_KEY }}
+        run: python script.py
+
+      - name: Commit CSV
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update meteo data"
